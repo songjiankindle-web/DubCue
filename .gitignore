@@ -1,0 +1,32 @@
+# Large installers and archives
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.dmg
+*.pkg
+*.exe
+*.msi
+
+# Model weights
+*.safetensors
+*.pth
+*.pt
+*.bin
+*.ckpt
+*.onnx
+*.gguf
+
+# Local environments and caches
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# Download staging
+releases/*
+!releases/.gitkeep
+
