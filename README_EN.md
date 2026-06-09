@@ -6,6 +6,22 @@
 
 **VoxCPM Easy Launcher does not train, modify, or own the VoxCPM model.** It makes the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project easier for non-developers to install, launch, and use.
 
+## Choose A Download
+
+> [!IMPORTANT]
+> Users with a slow connection should download the full package. It already contains the approximately 4.6 GB VoxCPM2 model.
+>
+> **Baidu Netdisk: [Download the full macOS / Windows packages](https://pan.baidu.com/s/1pRR-aB4NA1Dby3Goh6oA_Q?pwd=sjnb)**
+>
+> **Access code: `sjnb`**
+
+| Package | Size | Local model | Internet during setup |
+|---|---:|---|---|
+| GitHub Lite | About 3 MB | Not included | Automatically downloads dependencies, FFmpeg, and the approximately 4.6 GB model |
+| Full package | About 4–6 GB | Included | Does not re-download the main model; dependencies or FFmpeg may still require internet access |
+
+**[Download the Lite packages from GitHub Releases](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/latest)**
+
 ## Visit The Original Project
 
 The model, inference code, research, and core capabilities belong to the OpenBMB / ModelBest team:
@@ -37,14 +53,9 @@ The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo
 
 ## Downloads
 
-Installers contain local model weights and are roughly 4–6 GB, so they are not committed to this Git repository.
+GitHub Releases provide Lite installers without model weights. Full installers with local model weights are distributed through Baidu Netdisk.
 
-See **[Downloads and installation](DOWNLOADS.md)** for release links and checksums.
-
-Planned packages:
-
-- macOS Apple Silicon
-- Windows 10/11 x64
+See **[Downloads and installation](DOWNLOADS.md)** for links and checksums.
 
 ## Local Use And Privacy
 

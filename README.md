@@ -7,6 +7,26 @@
 **VoxCPM Easy Launcher 不训练、不修改、也不拥有 VoxCPM 模型。**  
 它只是为优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 提供更容易安装、启动和使用的桌面友好外壳。
 
+## 下载前必读
+
+> [!IMPORTANT]
+> **推荐网络较慢或不想等待模型下载的用户，直接下载“完整版安装包”。**
+>
+> 完整版已打包约 4.6GB 的 VoxCPM2 本地模型：
+>
+> **百度网盘：[点击下载 macOS / Windows 完整版](https://pan.baidu.com/s/1pRR-aB4NA1Dby3Goh6oA_Q?pwd=sjnb)**
+>
+> **提取码：`sjnb`**
+
+两种版本的区别：
+
+| 版本 | 安装包大小 | 是否包含模型 | 安装时联网 |
+|---|---:|---|---|
+| GitHub 轻量版 | 约 3MB | 不包含 | 会自动下载依赖、FFmpeg 和约 4.6GB 模型 |
+| 百度网盘完整版 | 约 4–6GB | 已包含 VoxCPM2 本地模型 | 不需要重新下载主模型；依赖或 FFmpeg 仍可能需要联网 |
+
+**[前往 GitHub Releases 下载轻量版](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/latest)**
+
 ## 请先访问原项目
 
 VoxCPM 的模型、推理代码、技术成果与核心能力均来自 OpenBMB / ModelBest 团队：
@@ -40,16 +60,13 @@ VoxCPM Easy Launcher 将 VoxCPM 包装成适合非开发者使用的本地应用
 
 ## 下载
 
-由于安装包包含本地模型权重，体积约为 4–6 GB，不直接存放在 Git 仓库中。
-
-安装包将由维护者单独上传。下载位置和校验信息见：
+GitHub Release 提供不含模型的轻量安装包；已内置模型的完整版通过百度网盘分发。下载位置和校验信息见：
 
 **[下载与安装说明](DOWNLOADS.md)**
 
-预留版本：
-
-- macOS Apple Silicon 安装包
-- Windows 10/11 x64 安装包
+- macOS Apple Silicon 轻量版
+- Windows 10/11 x64 轻量版
+- macOS / Windows 内置模型完整版
 
 ## 本地与隐私
 
