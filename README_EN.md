@@ -1,10 +1,10 @@
-# VoxCPM Studio
+# VoxCPM Easy Launcher
 
 [简体中文](README.md) | English
 
 > A desktop-friendly local installer and GUI wrapper for VoxCPM.
 
-**VoxCPM Studio does not train, modify, or own the VoxCPM model.** It makes the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project easier for non-developers to install, launch, and use.
+**VoxCPM Easy Launcher does not train, modify, or own the VoxCPM model.** It makes the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project easier for non-developers to install, launch, and use.
 
 ## Visit The Original Project
 
@@ -33,7 +33,7 @@ The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo
 
 ## Interface
 
-![VoxCPM Studio GUI](assets/voxcpm-studio-gui.png)
+![VoxCPM Easy Launcher GUI](assets/voxcpm-studio-gui.png)
 
 ## Downloads
 
@@ -77,4 +77,3 @@ If VoxCPM helps you, please star and support the [original repository](https://g
 The wrapper documentation, installer scripts, and launcher code in this repository use the [MIT License](LICENSE).
 
 VoxCPM source code, model weights, names, logos, and related assets remain subject to their original licenses and attribution. This repository's MIT License does not replace them.
-
