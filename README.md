@@ -1,11 +1,13 @@
-# VoxCPM Easy Launcher
+# VoxDirector
 
 [English](README_EN.md) | 简体中文
 
-> 一个面向普通用户的 VoxCPM 本地安装与图形界面外壳。
+> 一个基于 VoxCPM2 的本地长文本配音导演工具。
 
-**VoxCPM Easy Launcher 不训练、不修改、也不拥有 VoxCPM 模型。**  
-它只是为优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 提供更容易安装、启动和使用的桌面友好外壳。
+**VoxDirector 不训练、不修改、也不拥有 VoxCPM 模型。**  
+它是在原 VoxCPM Easy Launcher 基础上的大版本升级：继续为优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 提供本地安装与图形界面，同时新增长文本配音、导演表、智能断句、自动情绪提示词和连续音色拼接能力。
+
+旧版 **VoxCPM Easy Launcher v0.1.0-lite** 会继续保留在 GitHub Releases 中；新版从 **VoxDirector v0.2.0** 开始迭代。
 
 ## 下载前必读
 
@@ -41,18 +43,38 @@ VoxCPM 的模型、推理代码、技术成果与核心能力均来自 OpenBMB /
 
 ## 这个项目做了什么
 
-VoxCPM Easy Launcher 将 VoxCPM 包装成适合非开发者使用的本地应用：
+VoxDirector 将 VoxCPM 包装成适合非开发者使用的本地应用：
 
 - 提供 macOS 和 Windows 安装流程
 - 提供双击启动入口
 - 自动创建独立 Python 虚拟环境
 - 使用本地浏览器图形界面，无需手写命令
 - 支持声音设计、可控声音克隆和极致克隆
+- 新增长文本配音模式
+- 自动按语义断句，不按固定字数硬切
+- 自动为每段生成情绪、语速和提示词
+- 提供可手动编辑的 Director Table / 导演表
+- 使用滚动上下文尽量保持长稿音色与质感连续
+- 生成分段 WAV、完整 WAV 和 manifest.json
 - 模型安装完成后在本机推理
 - 不调用 Codex、ChatGPT 或其他 Agent
 - 本地生成不消耗 API token
 
-图形界面本身基于 VoxCPM 原项目提供的 Gradio Demo 进行桌面化包装与启动适配。
+图形界面本身基于 VoxCPM 原项目提供的 Gradio Demo 进行桌面化包装与启动适配，并在此基础上加入 VoxDirector 长文本工作流。
+
+## VoxDirector 长文本配音
+
+长文本模式的目标不是让模型一次吞下几千字，而是把长稿变成可控的配音工程：
+
+1. 粘贴或上传长稿。
+2. 自动生成 Director Table。
+3. 用户可手动调整每一段文本、情绪、语速、提示词和停顿。
+4. 逐段生成并保存音频。
+5. 自动拼接为完整成品音频。
+
+切分策略优先按段落和句号、问号、叹号、省略号等完整句边界断句。只有超长句才会按逗号、顿号、冒号等自然停顿二次切分。
+
+更多升级说明见 [VoxDirector Upgrade Notes](VOXDIRECTOR_UPGRADE.md)。
 
 ## 界面预览
 
