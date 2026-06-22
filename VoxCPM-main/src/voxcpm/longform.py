@@ -4,7 +4,7 @@ import re
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Callable, Iterable, Optional
 
 import numpy as np
 import soundfile as sf
@@ -391,6 +391,7 @@ def synthesize_longform(
     rolling_context_segments: int = 3,
     use_continuity: bool = True,
     apply_speed_control: bool = True,
+    progress_callback: Optional[Callable[[int, int, str, str], None]] = None,
 ) -> LongformResult:
     if not segments:
         raise ValueError("No director segments to synthesize.")
@@ -425,7 +426,10 @@ def synthesize_longform(
     recent_feats: list[object] = []
     prompt_cache = rebuild_prompt_cache(reference_feat, recent_texts, recent_feats) if can_cache else None
 
-    for segment in segments:
+    total_segments = len(segments)
+    for current_index, segment in enumerate(segments, 1):
+        if progress_callback is not None:
+            progress_callback(current_index, total_segments, "generating", segment.text)
         final_text = final_text_for_segment(segment)
         if can_cache:
             audio_tensor, _tokens, new_feat = tts_model.generate_with_prompt_cache(
@@ -470,7 +474,11 @@ def synthesize_longform(
                 "chars_per_second": round(chars_per_second(segment.text, audio, sample_rate), 3),
             }
         )
+        if progress_callback is not None:
+            progress_callback(current_index, total_segments, "saved", segment.text)
 
+    if progress_callback is not None:
+        progress_callback(total_segments, total_segments, "assembling", "")
     full_audio = concat_with_pauses(
         clips,
         [segment.pause_ms for segment in segments],
@@ -480,6 +488,8 @@ def synthesize_longform(
     manifest_path = job_dir / "manifest.json"
     sf.write(output_path, full_audio, sample_rate)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    if progress_callback is not None:
+        progress_callback(total_segments, total_segments, "done", "")
 
     return LongformResult(
         output_path=str(output_path),

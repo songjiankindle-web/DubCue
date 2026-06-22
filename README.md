@@ -2,12 +2,12 @@
 
 [English](README_EN.md) | 简体中文
 
-> 一个基于 VoxCPM2 的本地长文本配音导演工具。
+> 一个基于 VoxCPM2 的本地长文本配音导演工具，面向纪录片旁白、有声书、解说词和其他长稿配音工作流。
 
 **VoxDirector 不训练、不修改、也不拥有 VoxCPM 模型。**  
-它是在原 VoxCPM Easy Launcher 基础上的大版本升级：继续为优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 提供本地安装与图形界面，同时新增长文本配音、导演表、智能断句、自动情绪提示词和连续音色拼接能力。
+它基于优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 做本地安装、启动和长文本配音工作流包装。VoxDirector 的重点是让用户把一份长稿拆成可导演、可编辑、可重生成的配音工程：智能断句、Director Table、自动情绪提示词、滚动上下文连续音色和最终音频拼接。
 
-旧版 **VoxCPM Easy Launcher v0.1.0-lite** 会继续保留在 GitHub Releases 中；新版从 **VoxDirector v0.2.0** 开始迭代。
+旧版 **VoxCPM Easy Launcher v0.1.0-lite** 作为历史版本继续保留在 GitHub Releases 中，适合只需要单句生成和基础启动器的用户。
 
 ## 下载前必读
 
@@ -27,7 +27,7 @@
 | GitHub 轻量版 | 约 3MB | 不包含 | 会自动下载依赖、FFmpeg 和约 4.6GB 模型 |
 | 百度网盘完整版 | 约 4–6GB | 已包含 VoxCPM2 本地模型 | 不需要重新下载主模型；依赖或 FFmpeg 仍可能需要联网 |
 
-**[前往 GitHub Releases 下载轻量版](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/latest)**
+**[前往 GitHub Releases 下载轻量版](https://github.com/songjiankindle-web/VoxDirector/releases/latest)**
 
 ## 请先访问原项目
 
@@ -78,7 +78,7 @@ VoxDirector 将 VoxCPM 包装成适合非开发者使用的本地应用：
 
 ## 界面预览
 
-![VoxCPM Easy Launcher GUI](assets/voxcpm-studio-gui.png)
+![VoxDirector GUI](assets/voxcpm-studio-gui.png)
 
 ## 下载
 
