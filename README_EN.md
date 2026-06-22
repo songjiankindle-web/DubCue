@@ -2,11 +2,11 @@
 
 [简体中文](README.md) | English
 
-> A local long-form narration director built on VoxCPM2.
+> A local long-form narration director built on VoxCPM2 for documentary narration, audiobooks, explainers, and other long-script voiceover workflows.
 
-**VoxDirector does not train, modify, or own the VoxCPM model.** It is a major upgrade from VoxCPM Easy Launcher: it keeps the local installer and GUI wrapper for [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM), while adding long-form narration, editable director tables, semantic splitting, automatic emotion prompts, and continuity-oriented assembly.
+**VoxDirector does not train, modify, or own the VoxCPM model.** It is a local installer, launcher, and long-form narration workflow built around the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project. VoxDirector focuses on turning a long script into a controllable voiceover project: semantic splitting, an editable Director Table, automatic emotion prompts, rolling continuity context, and final audio assembly.
 
-The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available. New development starts with **VoxDirector v0.2.0**.
+The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available as a historical version for users who only need single-clip generation and the basic launcher workflow.
 
 ## Choose A Download
 
@@ -22,7 +22,7 @@ The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available. New de
 | GitHub Lite | About 3 MB | Not included | Automatically downloads dependencies, FFmpeg, and the approximately 4.6 GB model |
 | Full package | About 4–6 GB | Included | Does not re-download the main model; dependencies or FFmpeg may still require internet access |
 
-**[Download the Lite packages from GitHub Releases](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/latest)**
+**[Download the Lite packages from GitHub Releases](https://github.com/songjiankindle-web/VoxDirector/releases/latest)**
 
 ## Visit The Original Project
 
@@ -71,7 +71,7 @@ See [VoxDirector Upgrade Notes](VOXDIRECTOR_UPGRADE.md) for implementation notes
 
 ## Interface
 
-![VoxCPM Easy Launcher GUI](assets/voxcpm-studio-gui.png)
+![VoxDirector GUI](assets/voxcpm-studio-gui.png)
 
 ## Downloads
 
