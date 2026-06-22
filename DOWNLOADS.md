@@ -1,5 +1,39 @@
 # Downloads / 下载
 
+## 最新版：VoxDirector v0.2.0
+
+VoxDirector 是 VoxCPM Easy Launcher 的大版本升级，新增长文本配音、智能断句、Director Table 手动编辑、自动情绪提示词和连续音色拼接。
+
+### macOS Apple Silicon
+
+- **File / 文件：** `VoxDirector-macOS-Lite.zip`
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/download/v0.2.0-voxdirector/VoxDirector-macOS-Lite.zip)
+- **SHA-256：** `096fb082bf32d428295c5d9d707cac20393c4163ea0f04df814f1df71879d8a6`
+- **Target / 适用：** Apple Silicon M1 / M2 / M3 / M4
+
+安装方法：
+
+1. 下载并解压。
+2. 右键 `Install.command`，选择“打开”。
+3. 安装完成后双击 `~/Applications/VoxDirector/Start VoxDirector.command`。
+
+### Windows x64
+
+- **File / 文件：** `VoxDirector-Windows-Lite.zip`
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/voxcpm-easy-launcher/releases/download/v0.2.0-voxdirector/VoxDirector-Windows-Lite.zip)
+- **SHA-256：** `3f1d1b394fbabb1221a694de6aebc904dd57ca7406b043c4ddbccb784694a056`
+- **Target / 适用：** 64-bit Windows 10/11
+
+安装方法：
+
+1. 下载并解压，不要直接在压缩包内部运行。
+2. 双击 `Install.bat`。
+3. 安装完成后双击 `%LOCALAPPDATA%\VoxDirector\Start VoxDirector.bat`。
+
+## 历史版本：VoxCPM Easy Launcher v0.1.0-lite
+
+旧版轻量包继续保留，适合只需要单句生成和原 Easy Launcher 工作流的用户。
+
 ## 完整版：已内置本地模型
 
 > [!IMPORTANT]

@@ -1,10 +1,12 @@
-# VoxCPM Easy Launcher
+# VoxDirector
 
 [简体中文](README.md) | English
 
-> A desktop-friendly local installer and GUI wrapper for VoxCPM.
+> A local long-form narration director built on VoxCPM2.
 
-**VoxCPM Easy Launcher does not train, modify, or own the VoxCPM model.** It makes the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project easier for non-developers to install, launch, and use.
+**VoxDirector does not train, modify, or own the VoxCPM model.** It is a major upgrade from VoxCPM Easy Launcher: it keeps the local installer and GUI wrapper for [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM), while adding long-form narration, editable director tables, semantic splitting, automatic emotion prompts, and continuity-oriented assembly.
+
+The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available. New development starts with **VoxDirector v0.2.0**.
 
 ## Choose A Download
 
@@ -41,11 +43,31 @@ Please read, follow, and support the original project first. This repository is 
 - An isolated Python virtual environment
 - A browser-based local GUI instead of terminal commands
 - Voice design, controllable cloning, and transcript-guided cloning
+- Long-form narration mode
+- Semantic script splitting instead of fixed-length chopping
+- Automatic per-segment emotion, speed, and prompt drafting
+- An editable Director Table for manual control
+- Rolling continuity context to keep long scripts more consistent
+- Segment WAV files, a final WAV, and `manifest.json`
 - Local inference after installation
 - No Codex, ChatGPT, or agent dependency
 - No API-token usage for local generation
 
-The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo provided by the VoxCPM project.
+The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo provided by the VoxCPM project, extended with the VoxDirector long-form workflow.
+
+## VoxDirector Long-Form Mode
+
+Long-form mode does not ask the model to synthesize thousands of characters in one pass. It turns a script into a controllable narration project:
+
+1. Paste or upload a script.
+2. Build a Director Table.
+3. Manually edit segment text, emotion, speed, prompt, and pauses.
+4. Generate and save each segment.
+5. Assemble the final narration audio.
+
+Splitting prefers paragraph and full-sentence boundaries such as periods, question marks, exclamation marks, and ellipses. Commas and weaker pauses are used only for very long sentences.
+
+See [VoxDirector Upgrade Notes](VOXDIRECTOR_UPGRADE.md) for implementation notes and limitations.
 
 ## Interface
 
