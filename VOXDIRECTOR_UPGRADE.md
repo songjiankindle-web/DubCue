@@ -45,7 +45,9 @@ If prompt-cache APIs are unavailable, generation falls back to ordinary per-segm
 ## Current limitations
 
 - Emotion analysis is rule-based and offline. It is stable and editable, but not as nuanced as an optional future LLM-based director.
-- Speed control is engineering-level correction. VoxCPM does not expose a hard speech-rate parameter, so VoxDirector combines prompts, chunk sizing, pause insertion, and gentle time-stretching.
+- Speed control is engineering-level correction. VoxCPM does not expose a hard speech-rate parameter, so VoxDirector combines chunk sizing, pause insertion, gentle time-stretching, and segment duration guards.
+- Segment prompts are not sent into TTS by default because VoxCPM may read verbose director instructions literally. The Director Table still records editable prompts, and an experimental switch can pass them through for controlled testing.
+- Each segment now has duration and silence guards. Bad cached continuations are dropped and retried as reference-only generation instead of being allowed to produce minutes of blank audio.
 - The first implementation generates the whole job synchronously through Gradio. Resume, cancel, single-segment regeneration, and project save/load should be added next.
 
 ## Recommended next steps
