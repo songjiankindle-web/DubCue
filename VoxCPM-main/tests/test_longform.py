@@ -1,9 +1,14 @@
 from voxcpm.longform import (
     build_director_segments,
+    expected_duration_range,
+    final_text_for_segment,
     rows_to_segments,
     segments_to_rows,
     smart_split_text,
+    validate_or_repair_segment_audio,
 )
+
+import numpy as np
 
 
 def test_smart_split_prefers_sentence_boundaries():
@@ -27,3 +32,26 @@ def test_director_rows_are_editable_roundtrip():
     assert len(segments) == 1
     assert "希望" in segments[0].prompt
     assert segments[0].pause_ms >= 0
+
+
+def test_segment_prompt_is_not_spoken_by_default():
+    segment = build_director_segments("中国国家博物馆内，C形碧玉龙格外醒目。")[0]
+
+    assert final_text_for_segment(segment) == segment.text
+    assert final_text_for_segment(segment, apply_prompt=True).startswith("(")
+
+
+def test_long_silent_tail_is_capped():
+    sample_rate = 24000
+    segment = build_director_segments("很长时间里，这里一直默默无闻。")[0]
+    _min_seconds, max_seconds = expected_duration_range(segment.text, segment.speed)
+    speech = np.ones(int(sample_rate * 2.0), dtype=np.float32) * 0.03
+    tail = np.zeros(int(sample_rate * 90.0), dtype=np.float32)
+
+    repaired = validate_or_repair_segment_audio(
+        np.concatenate([speech, tail]),
+        sample_rate=sample_rate,
+        segment=segment,
+    )
+
+    assert len(repaired) / sample_rate <= max_seconds * 1.08

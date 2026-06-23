@@ -209,6 +209,7 @@ UI_TEXT = {
         "rolling": "滚动连续上下文段数",
         "continuity": "使用滚动 prompt cache 保持音色连续",
         "speed_control": "对每段应用温和语速修正",
+        "apply_prompts": "实验性：把每段提示词送入 TTS（可能被读出来，默认关闭）",
         "generate_long": "生成完整长文本音频",
         "final_audio": "完整长文本音频",
         "manifest": "生成清单",
@@ -266,6 +267,7 @@ UI_TEXT = {
         "rolling": "Rolling continuity segments",
         "continuity": "Keep voice continuous with rolling prompt cache",
         "speed_control": "Apply gentle speed correction after each segment",
+        "apply_prompts": "Experimental: send segment prompts into TTS (may be spoken, off by default)",
         "generate_long": "Generate Long-form Audio",
         "final_audio": "Final long-form audio",
         "manifest": "Manifest",
@@ -513,6 +515,7 @@ class VoxCPMDemo:
         rolling_context_segments: int,
         use_continuity: bool,
         apply_speed_control: bool,
+        apply_prompts_to_tts: bool,
         progress=gr.Progress(),
     ):
         segments = rows_to_segments(director_rows)
@@ -562,6 +565,7 @@ class VoxCPMDemo:
             rolling_context_segments=int(rolling_context_segments),
             use_continuity=use_continuity,
             apply_speed_control=apply_speed_control,
+            apply_prompts_to_tts=apply_prompts_to_tts,
             progress_callback=_progress_callback,
         )
         message = ui_text(language, "done").format(
@@ -660,6 +664,7 @@ def create_demo_interface(demo: VoxCPMDemo):
             gr.update(label=t["rolling"]),
             gr.update(label=t["continuity"]),
             gr.update(label=t["speed_control"]),
+            gr.update(label=t["apply_prompts"]),
             gr.update(value=t["generate_long"]),
             gr.update(label=t["final_audio"]),
             gr.update(label=t["manifest"]),
@@ -907,6 +912,11 @@ def create_demo_interface(demo: VoxCPMDemo):
                                 label=ui_text("zh", "speed_control"),
                                 elem_classes=["switch-toggle"],
                             )
+                            apply_prompts_to_tts = gr.Checkbox(
+                                value=False,
+                                label=ui_text("zh", "apply_prompts"),
+                                elem_classes=["switch-toggle"],
+                            )
                         generate_long_btn = gr.Button(
                             ui_text("zh", "generate_long"),
                             variant="primary",
@@ -953,6 +963,7 @@ def create_demo_interface(demo: VoxCPMDemo):
                         rolling_context,
                         use_continuity,
                         apply_speed_control,
+                        apply_prompts_to_tts,
                     ],
                     outputs=[long_audio_output, manifest_output, long_generation_status],
                     show_progress=True,
@@ -993,6 +1004,7 @@ def create_demo_interface(demo: VoxCPMDemo):
                 rolling_context,
                 use_continuity,
                 apply_speed_control,
+                apply_prompts_to_tts,
                 generate_long_btn,
                 long_audio_output,
                 manifest_output,
