@@ -234,11 +234,11 @@ def segments_to_rows(segments: Iterable[DirectorSegment]) -> list[list[object]]:
         [
             segment.index,
             segment.text,
-            segment.emotion,
             segment.speed,
             segment.prompt,
             segment.pause_ms,
             segment.status,
+            "",
         ]
         for segment in segments
     ]
@@ -256,10 +256,17 @@ def rows_to_segments(rows) -> list[DirectorSegment]:
         text = str(row[1] or "").strip()
         if not text:
             continue
-        emotion = str(row[2] or "克制 / 纪录片").strip() if len(row) > 2 else "克制 / 纪录片"
-        speed = str(row[3] or "slow").strip() if len(row) > 3 else "slow"
-        prompt = str(row[4] or "").strip() if len(row) > 4 else ""
-        pause_raw = row[5] if len(row) > 5 else 520
+        has_legacy_emotion_column = len(row) >= 8
+        if has_legacy_emotion_column:
+            emotion = str(row[2] or "克制 / 纪录片").strip()
+            speed = str(row[3] or "slow").strip()
+            prompt = str(row[4] or "").strip()
+            pause_raw = row[5]
+        else:
+            emotion = "克制 / 纪录片"
+            speed = str(row[2] or "slow").strip() if len(row) > 2 else "slow"
+            prompt = str(row[3] or "").strip() if len(row) > 3 else ""
+            pause_raw = row[4] if len(row) > 4 else 520
         try:
             pause_ms = int(float(pause_raw))
         except (TypeError, ValueError):
@@ -297,22 +304,48 @@ def chars_per_second(text: str, audio: np.ndarray, sample_rate: int) -> float:
     return visible_chars / duration
 
 
-def adjust_speed_if_needed(audio: np.ndarray, sample_rate: int, text: str, speed: str) -> np.ndarray:
-    targets = {"slow": 2.8, "standard": 4.2, "fast": 5.6}
-    target = targets.get(speed)
-    if target is None:
-        return audio
-    actual = chars_per_second(text, audio, sample_rate)
-    if actual <= target * 1.12:
-        return audio
-    rate = max(0.82, min(1.0, target / actual))
+def estimate_reference_cps(prompt_text: str, reference_wav_path: Optional[str]) -> Optional[float]:
+    if not prompt_text.strip() or not reference_wav_path:
+        return None
     try:
-        import librosa
-
-        stretched = librosa.effects.time_stretch(audio.astype(np.float32), rate=rate)
-        return stretched.astype(np.float32)
+        info = sf.info(reference_wav_path)
     except Exception:
-        return audio
+        return None
+    if info.duration <= 0:
+        return None
+    visible_chars = len(re.sub(r"\s+", "", prompt_text))
+    if visible_chars < 4:
+        return None
+    cps = visible_chars / float(info.duration)
+    if cps < 0.8 or cps > 9.0:
+        return None
+    return cps
+
+
+def target_cps_for_segment(speed: str, reference_cps: Optional[float] = None) -> Optional[float]:
+    targets = {"slow": 2.35, "standard": 3.6, "fast": 5.0}
+    target = targets.get(speed)
+    if reference_cps is not None:
+        target = min(target, reference_cps) if target is not None else reference_cps
+    return target
+
+
+def natural_speed_report(
+    audio: np.ndarray,
+    sample_rate: int,
+    text: str,
+    speed: str,
+    reference_cps: Optional[float] = None,
+) -> dict:
+    target = target_cps_for_segment(speed, reference_cps=reference_cps)
+    actual = chars_per_second(text, audio, sample_rate)
+    if target is None:
+        return {"actual_cps": round(actual, 3), "target_cps": None, "too_fast": False}
+    return {
+        "actual_cps": round(actual, 3),
+        "target_cps": round(target, 3),
+        "too_fast": actual > target * 1.18,
+    }
 
 
 def trim_edges(audio: np.ndarray, threshold: float = 0.003, keep_ms: int = 80, sample_rate: int = 24000) -> np.ndarray:
@@ -360,23 +393,21 @@ def concat_with_pauses(
     clips: list[np.ndarray],
     pauses_ms: list[int],
     sample_rate: int,
-    crossfade_ms: int = 45,
+    min_pause_ms: int = 1000,
 ) -> np.ndarray:
     if not clips:
         return np.zeros(0, dtype=np.float32)
     output = clips[0].astype(np.float32)
-    fade_len = int(sample_rate * crossfade_ms / 1000)
     for clip, pause_ms in zip(clips[1:], pauses_ms[:-1]):
-        pause = np.zeros(int(sample_rate * pause_ms / 1000), dtype=np.float32)
+        actual_pause_ms = max(int(pause_ms), int(min_pause_ms))
+        pause = np.zeros(int(sample_rate * actual_pause_ms / 1000), dtype=np.float32)
         next_clip = clip.astype(np.float32)
-        if fade_len > 0 and len(output) > fade_len and len(next_clip) > fade_len:
-            fade_out = np.linspace(1.0, 0.0, fade_len, dtype=np.float32)
-            fade_in = np.linspace(0.0, 1.0, fade_len, dtype=np.float32)
-            overlap = output[-fade_len:] * fade_out + next_clip[:fade_len] * fade_in
-            output = np.concatenate([output[:-fade_len], overlap, next_clip[fade_len:], pause])
-        else:
-            output = np.concatenate([output, pause, next_clip])
+        output = np.concatenate([output, pause, next_clip])
     return normalize_peak(output)
+
+
+def effective_pause_ms(segment: DirectorSegment, min_pause_ms: int = 1000) -> int:
+    return max(int(segment.pause_ms), int(min_pause_ms))
 
 
 def _to_numpy_audio(audio) -> np.ndarray:
@@ -465,6 +496,7 @@ def synthesize_longform(
     use_continuity: bool = True,
     apply_speed_control: bool = True,
     apply_prompts_to_tts: bool = False,
+    reference_speed_cps: Optional[float] = None,
     max_segment_retries: int = 2,
     progress_callback: Optional[Callable[[int, int, str, str], None]] = None,
 ) -> LongformResult:
@@ -497,6 +529,9 @@ def synthesize_longform(
         )
         reference_feat = initial_cache.get("ref_audio_feat")
 
+    if reference_speed_cps is None:
+        reference_speed_cps = estimate_reference_cps(prompt_text, reference_wav_path)
+
     recent_texts: list[str] = []
     recent_feats: list[object] = []
     prompt_cache = rebuild_prompt_cache(reference_feat, recent_texts, recent_feats) if can_cache else None
@@ -509,6 +544,7 @@ def synthesize_longform(
         audio = None
         new_feat_for_cache = None
         last_error: Optional[Exception] = None
+        speed_report = {"actual_cps": None, "target_cps": None, "too_fast": False}
         for attempt in range(max(1, max_segment_retries + 1)):
             try:
                 attempt_uses_cache = can_cache and attempt == 0
@@ -531,9 +567,12 @@ def synthesize_longform(
                     )
                     new_feat_for_cache = new_feat
                 else:
+                    prompt_text_clean = (prompt_text or "").strip() or None
                     candidate_audio = model.generate(
                         text=final_text,
                         reference_wav_path=reference_wav_path,
+                        prompt_wav_path=reference_wav_path if prompt_text_clean and reference_wav_path else None,
+                        prompt_text=prompt_text_clean if prompt_text_clean and reference_wav_path else None,
                         cfg_value=cfg_value,
                         inference_timesteps=inference_timesteps,
                         normalize=normalize,
@@ -550,6 +589,14 @@ def synthesize_longform(
                         segment=segment,
                     )
                     new_feat_for_cache = None
+                if apply_speed_control:
+                    speed_report = natural_speed_report(
+                        candidate_audio,
+                        sample_rate,
+                        segment.text,
+                        segment.speed,
+                        reference_cps=reference_speed_cps,
+                    )
                 audio = candidate_audio
                 break
             except Exception as exc:
@@ -572,9 +619,6 @@ def synthesize_longform(
                 recent_feats = recent_feats[-rolling_context_segments:]
             prompt_cache = rebuild_prompt_cache(reference_feat, recent_texts, recent_feats)
 
-        if apply_speed_control:
-            audio = adjust_speed_if_needed(audio, sample_rate, segment.text, segment.speed)
-            audio = validate_or_repair_segment_audio(audio, sample_rate=sample_rate, segment=segment)
         audio = normalize_peak(audio)
 
         segment_path = segment_dir / f"segment_{segment.index:04d}.wav"
@@ -588,6 +632,9 @@ def synthesize_longform(
                 "segment_path": str(segment_path),
                 "duration_seconds": round(duration, 3),
                 "chars_per_second": round(chars_per_second(segment.text, audio, sample_rate), 3),
+                "target_chars_per_second": speed_report.get("target_cps"),
+                "speed_warning": bool(speed_report.get("too_fast")),
+                "actual_pause_after_ms": effective_pause_ms(segment) if current_index < total_segments else 0,
             }
         )
         if progress_callback is not None:
@@ -599,6 +646,7 @@ def synthesize_longform(
         clips,
         [segment.pause_ms for segment in segments],
         sample_rate=sample_rate,
+        min_pause_ms=1000,
     )
     output_path = job_dir / "voxdirector_longform.wav"
     manifest_path = job_dir / "manifest.json"
