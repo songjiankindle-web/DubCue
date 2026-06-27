@@ -1,8 +1,8 @@
 # Downloads / 下载
 
-## 最新版：VoxDirector v0.2.2
+## 历史版本：VoxDirector v0.2.2
 
-VoxDirector 是 VoxCPM Easy Launcher 的大版本升级，新增长文本配音、智能断句、Director Table 手动编辑、自动情绪提示词、连续音色拼接、界面语言切换和长任务实时进度显示。v0.2.2 修复了长文本模式可能把提示词读出来、生成超长静音尾巴、坏段继续拼接的问题。
+这是 DubCue 更名前的历史版本。VoxDirector 是 VoxCPM Easy Launcher 的大版本升级，新增长文本配音、智能断句、Director Table 手动编辑、自动情绪提示词、连续音色拼接、界面语言切换和长任务实时进度显示。v0.2.2 修复了长文本模式可能把提示词读出来、生成超长静音尾巴、坏段继续拼接的问题。
 
 ### macOS Apple Silicon
 

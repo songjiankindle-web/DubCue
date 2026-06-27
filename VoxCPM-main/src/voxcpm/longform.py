@@ -504,7 +504,7 @@ def synthesize_longform(
         raise ValueError("No director segments to synthesize.")
 
     output_root.mkdir(parents=True, exist_ok=True)
-    job_dir = output_root / time.strftime("voxdirector-%Y%m%d-%H%M%S")
+    job_dir = output_root / time.strftime("dubcue-%Y%m%d-%H%M%S")
     segment_dir = job_dir / "segments"
     segment_dir.mkdir(parents=True, exist_ok=True)
 
@@ -648,7 +648,7 @@ def synthesize_longform(
         sample_rate=sample_rate,
         min_pause_ms=1000,
     )
-    output_path = job_dir / "voxdirector_longform.wav"
+    output_path = job_dir / "dubcue_longform.wav"
     manifest_path = job_dir / "manifest.json"
     sf.write(output_path, full_audio, sample_rate)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -1,11 +1,13 @@
-# VoxDirector
+# DubCue
+
+![DubCue](assets/brand/dubcue-logo.png)
 
 [English](README_EN.md) | 简体中文
 
-> 一个基于 VoxCPM2 的本地长文本配音导演工具，面向纪录片旁白、有声书、解说词和其他长稿配音工作流。
+> 一个基于 VoxCPM2 的本地 AI 配音导演工具，面向影视配音、纪录片旁白、有声书、解说词和其他可导演的声音表演工作流。
 
-**VoxDirector 不训练、不修改、也不拥有 VoxCPM 模型。**  
-它基于优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 做本地安装、启动和长文本配音工作流包装。VoxDirector 的重点是让用户把一份长稿拆成可导演、可编辑、可重生成的配音工程：智能断句、Director Table、自动情绪提示词、滚动上下文连续音色和最终音频拼接。
+**DubCue 不训练、不修改、也不拥有 VoxCPM 模型。**
+它基于优秀的开源项目 [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) 做本地安装、启动和配音导演工作流包装。DubCue 的重点是让用户把文本与影片内容拆成可理解、可导演、可编辑、可重生成的配音工程。
 
 旧版 **VoxCPM Easy Launcher v0.1.0-lite** 作为历史版本继续保留在 GitHub Releases 中，适合只需要单句生成和基础启动器的用户。
 
@@ -43,7 +45,7 @@ VoxCPM 的模型、推理代码、技术成果与核心能力均来自 OpenBMB /
 
 ## 这个项目做了什么
 
-VoxDirector 将 VoxCPM 包装成适合非开发者使用的本地应用：
+DubCue 将 VoxCPM 包装成适合非开发者使用的本地应用：
 
 - 提供 macOS 和 Windows 安装流程
 - 提供双击启动入口
@@ -60,9 +62,9 @@ VoxDirector 将 VoxCPM 包装成适合非开发者使用的本地应用：
 - 不调用 Codex、ChatGPT 或其他 Agent
 - 本地生成不消耗 API token
 
-图形界面本身基于 VoxCPM 原项目提供的 Gradio Demo 进行桌面化包装与启动适配，并在此基础上加入 VoxDirector 长文本工作流。
+图形界面本身基于 VoxCPM 原项目提供的 Gradio Demo 进行桌面化包装与启动适配，并在此基础上加入 DubCue 配音导演工作流。
 
-## VoxDirector 长文本配音
+## DubCue 配音导演工作流
 
 长文本模式的目标不是让模型一次吞下几千字，而是把长稿变成可控的配音工程：
 
@@ -74,11 +76,11 @@ VoxDirector 将 VoxCPM 包装成适合非开发者使用的本地应用：
 
 切分策略优先按段落和句号、问号、叹号、省略号等完整句边界断句。只有超长句才会按逗号、顿号、冒号等自然停顿二次切分。
 
-更多升级说明见 [VoxDirector Upgrade Notes](VOXDIRECTOR_UPGRADE.md)。
+更多升级说明见 [DubCue Upgrade Notes](DUBCUE_UPGRADE.md)。
 
 ## 界面预览
 
-![VoxDirector GUI](assets/voxcpm-studio-gui.png)
+![DubCue GUI](assets/voxcpm-studio-gui.png)
 
 ## 下载
 

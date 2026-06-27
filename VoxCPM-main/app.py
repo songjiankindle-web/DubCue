@@ -399,7 +399,7 @@ DEFAULT_TARGET_TEXT = (
 
 UI_TEXT = {
     "zh": {
-        "app_title": "VoxDirector 长文本配音",
+        "app_title": "DubCue 配音导演",
         "language_button": "语言切换：中文",
         "tips": "操作技巧",
         "tips_markdown": _OPERATION_TIPS_ZH,
@@ -467,7 +467,7 @@ UI_TEXT = {
         "progress_done": "生成完成",
     },
     "en": {
-        "app_title": "VoxDirector Long-form Narration",
+        "app_title": "DubCue Dubbing Director",
         "language_button": "Language: English",
         "tips": "Tips",
         "tips_markdown": _OPERATION_TIPS_EN,
@@ -702,8 +702,8 @@ _CUSTOM_CSS = """
 _DIRECTOR_KEYBOARD_HEAD = """
 <script>
 (() => {
-  if (window.__voxdirectorKeyboardInstalled) return;
-  window.__voxdirectorKeyboardInstalled = true;
+  if (window.__dubcueKeyboardInstalled) return;
+  window.__dubcueKeyboardInstalled = true;
 
   function editableValue(target) {
     if (target.isContentEditable) return target.innerText || "";
@@ -1000,7 +1000,7 @@ class VoxCPMDemo:
             raise ValueError("The director table is empty.")
 
         current_model = self.get_or_load_voxcpm()
-        output_root = Path.cwd() / "outputs" / "voxdirector"
+        output_root = Path.cwd() / "outputs" / "dubcue"
         manifest_items: list[dict] = []
         total = len(segments)
         manifest_path = ""
@@ -1099,7 +1099,7 @@ class VoxCPMDemo:
             segment.index = row_index + 1
 
         current_model = self.get_or_load_voxcpm()
-        output_root = Path.cwd() / "outputs" / "voxdirector"
+        output_root = Path.cwd() / "outputs" / "dubcue"
         progress(0, desc=f"Generating segment {segment.index}...")
         result = synthesize_longform(
             model=current_model,
@@ -1152,10 +1152,10 @@ class VoxCPMDemo:
             pauses.append(segment.pause_ms)
         if missing:
             raise ValueError(f"这些段落还没有生成音频：{', '.join(missing)}")
-        output_dir = Path.cwd() / "outputs" / "voxdirector" / time.strftime("director-merge-%Y%m%d-%H%M%S")
+        output_dir = Path.cwd() / "outputs" / "dubcue" / time.strftime("director-merge-%Y%m%d-%H%M%S")
         output_dir.mkdir(parents=True, exist_ok=True)
         full_audio = concat_with_pauses(clips, pauses, sample_rate or 24000, min_pause_ms=1000)
-        output_path = output_dir / "voxdirector_merged.wav"
+        output_path = output_dir / "dubcue_merged.wav"
         sf.write(output_path, full_audio, sample_rate or 24000)
         return str(output_path), f"已合并 {len(clips)} 段：{output_path}"
 
@@ -1168,9 +1168,9 @@ class VoxCPMDemo:
                 paths.append(Path(path))
         if not paths:
             raise ValueError("还没有可下载的分段音频。")
-        output_dir = Path.cwd() / "outputs" / "voxdirector" / time.strftime("director-segments-%Y%m%d-%H%M%S")
+        output_dir = Path.cwd() / "outputs" / "dubcue" / time.strftime("director-segments-%Y%m%d-%H%M%S")
         output_dir.mkdir(parents=True, exist_ok=True)
-        zip_path = output_dir / "voxdirector_segments.zip"
+        zip_path = output_dir / "dubcue_segments.zip"
         with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for path in paths:
                 archive.write(path, arcname=path.name)
@@ -1328,7 +1328,7 @@ def create_demo_interface(demo: VoxCPMDemo):
         with gr.Group(elem_classes=["top-bar"]):
             gr.HTML(
                 '<div class="logo-container">'
-                f'<img src="{logo_src}" alt="VoxDirector Logo">'
+                f'<img src="{logo_src}" alt="DubCue Logo">'
                 "</div>"
             )
             language = gr.State("zh")

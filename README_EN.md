@@ -1,10 +1,12 @@
-# VoxDirector
+# DubCue
+
+![DubCue](assets/brand/dubcue-logo.png)
 
 [简体中文](README.md) | English
 
-> A local long-form narration director built on VoxCPM2 for documentary narration, audiobooks, explainers, and other long-script voiceover workflows.
+> A local AI dubbing director built on VoxCPM2 for screen dubbing, documentary narration, audiobooks, explainers, and other directed voice-performance workflows.
 
-**VoxDirector does not train, modify, or own the VoxCPM model.** It is a local installer, launcher, and long-form narration workflow built around the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project. VoxDirector focuses on turning a long script into a controllable voiceover project: semantic splitting, an editable Director Table, automatic emotion prompts, rolling continuity context, and final audio assembly.
+**DubCue does not train, modify, or own the VoxCPM model.** It is a local installer, launcher, and dubbing-direction workflow built around the excellent open-source [OpenBMB/VoxCPM](https://github.com/OpenBMB/VoxCPM) project. DubCue focuses on turning text and screen context into a controllable voice-performance project.
 
 The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available as a historical version for users who only need single-clip generation and the basic launcher workflow.
 
@@ -53,9 +55,9 @@ Please read, follow, and support the original project first. This repository is 
 - No Codex, ChatGPT, or agent dependency
 - No API-token usage for local generation
 
-The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo provided by the VoxCPM project, extended with the VoxDirector long-form workflow.
+The GUI is a desktop-oriented packaging and launch adaptation of the Gradio demo provided by the VoxCPM project, extended with the DubCue dubbing-director workflow.
 
-## VoxDirector Long-Form Mode
+## DubCue Dubbing Director Workflow
 
 Long-form mode does not ask the model to synthesize thousands of characters in one pass. It turns a script into a controllable narration project:
 
@@ -67,11 +69,11 @@ Long-form mode does not ask the model to synthesize thousands of characters in o
 
 Splitting prefers paragraph and full-sentence boundaries such as periods, question marks, exclamation marks, and ellipses. Commas and weaker pauses are used only for very long sentences.
 
-See [VoxDirector Upgrade Notes](VOXDIRECTOR_UPGRADE.md) for implementation notes and limitations.
+See [DubCue Upgrade Notes](DUBCUE_UPGRADE.md) for implementation notes and limitations.
 
 ## Interface
 
-![VoxDirector GUI](assets/voxcpm-studio-gui.png)
+![DubCue GUI](assets/voxcpm-studio-gui.png)
 
 ## Downloads
 
