@@ -24,7 +24,7 @@ The older **VoxCPM Easy Launcher v0.1.0-lite** release remains available as a hi
 | GitHub Lite | About 3 MB | Not included | Automatically downloads dependencies, FFmpeg, and the approximately 4.6 GB model |
 | Full package | About 4–6 GB | Included | Does not re-download the main model; dependencies or FFmpeg may still require internet access |
 
-**[Download the Lite packages from GitHub Releases](https://github.com/songjiankindle-web/VoxDirector/releases/latest)**
+**[Download the Lite packages from GitHub Releases](https://github.com/songjiankindle-web/DubCue/releases/latest)**
 
 ## Visit The Original Project
 

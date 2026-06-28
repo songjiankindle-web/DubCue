@@ -29,7 +29,7 @@
 | GitHub 轻量版 | 约 3MB | 不包含 | 会自动下载依赖、FFmpeg 和约 4.6GB 模型 |
 | 百度网盘完整版 | 约 4–6GB | 已包含 VoxCPM2 本地模型 | 不需要重新下载主模型；依赖或 FFmpeg 仍可能需要联网 |
 
-**[前往 GitHub Releases 下载轻量版](https://github.com/songjiankindle-web/VoxDirector/releases/latest)**
+**[前往 GitHub Releases 下载轻量版](https://github.com/songjiankindle-web/DubCue/releases/latest)**
 
 ## 请先访问原项目
 

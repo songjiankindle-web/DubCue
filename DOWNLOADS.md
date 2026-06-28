@@ -7,7 +7,7 @@
 ### macOS Apple Silicon
 
 - **File / 文件：** `VoxDirector-macOS-Lite.zip`
-- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/VoxDirector/releases/download/v0.2.2/VoxDirector-macOS-Lite.zip)
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/DubCue/releases/download/v0.2.2/VoxDirector-macOS-Lite.zip)
 - **SHA-256：** `56a4cbe45011f20911630c23c713e629754f1ccdf4008cb981f02c3f530941e1`
 - **Target / 适用：** Apple Silicon M1 / M2 / M3 / M4
 
@@ -20,7 +20,7 @@
 ### Windows x64
 
 - **File / 文件：** `VoxDirector-Windows-Lite.zip`
-- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/VoxDirector/releases/download/v0.2.2/VoxDirector-Windows-Lite.zip)
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/DubCue/releases/download/v0.2.2/VoxDirector-Windows-Lite.zip)
 - **SHA-256：** `e67fa6e2af31d2b7de249a3e1fb3d14b3a8d195b5d34c56d9ad871b872686107`
 - **Target / 适用：** 64-bit Windows 10/11
 
@@ -52,7 +52,7 @@
 ## macOS Apple Silicon
 
 - **File / 文件：** `VoxCPM-Easy-Launcher-macOS-Lite.zip`
-- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/VoxDirector/releases/download/v0.1.0-lite/VoxCPM-Easy-Launcher-macOS-Lite.zip)
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/DubCue/releases/download/v0.1.0-lite/VoxCPM-Easy-Launcher-macOS-Lite.zip)
 - **SHA-256：** `ad1a9d3048384ef4589ebee27f6cc167dba8a2f78767fa62197c1e5367b41453`
 - **Target / 适用：** Apple Silicon M1 / M2 / M3 / M4
 
@@ -65,7 +65,7 @@
 ## Windows x64
 
 - **File / 文件：** `VoxCPM-Easy-Launcher-Windows-Lite.zip`
-- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/VoxDirector/releases/download/v0.1.0-lite/VoxCPM-Easy-Launcher-Windows-Lite.zip)
+- **Download / 下载：** [GitHub Release](https://github.com/songjiankindle-web/DubCue/releases/download/v0.1.0-lite/VoxCPM-Easy-Launcher-Windows-Lite.zip)
 - **SHA-256：** `2a6b4a9963f6b6dec4b2477f70db6fe038480d24b260729f9397b82fdc311112`
 - **Target / 适用：** 64-bit Windows 10/11
 
